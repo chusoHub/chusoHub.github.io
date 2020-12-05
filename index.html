@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+</head>
+<body class="text-white bg-dark">
+    <center>
+        
+        <h1 class="font-weight-light pt-2" style="margin-left:-3rem"><a type="button" href ="JesusVicenteRiquelme.pdf" class="btn btn-lg rounded btn-info  ml-4 mr-4 ">CV <i class="fa fa-envelope" aria-hidden="true"></i></a>  Temperatura <sup>o</sup>C - Estaci&oacute;n de Pamplona (ETSIA) UPNA </h1>
+    </center>
+    
+    
+    <div class="container">
+        <div class="row mt-3  pt-2 ">
+            <div id="id1" class="col">
+                <h2 class="mt-4 pt-1 font-weight-light"></h2>
+                <div id="cont1"></div>
+            </div>
+            <div class="col  mt-4">
+                <div class="row  float-right">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="0" checked>
+                        <label class="form-check-label" for="inlineCheckbox1" id="lab0">2007</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="1">
+                        <label class="form-check-label" for="inlineCheckbox2" id="lab1">2008</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="2">
+                        <label class="form-check-label" for="inlineCheckbox3" id="lab2">2009</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="3">
+                        <label class="form-check-label" for="inlineCheckbox4" id="lab3">2010</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="4">
+                        <label class="form-check-label" for="inlineCheckbox5" id="lab4">2011</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="5">
+                        <label class="form-check-label" for="inlineCheckbox6" id="lab5">2012</label>
+                    </div>
+                </div>
+                <div class="row float-right">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="6">
+                        <label class="form-check-label" for="inlineCheckbox7" id="lab6">2013</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="7">
+                        <label class="form-check-label" for="inlineCheckbox8" id="lab7">2014</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="8">
+                        <label class="form-check-label" for="inlineCheckbox9" id="lab8">2015</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox10" value="9">
+                        <label class="form-check-label" for="inlineCheckbox10" id="lab9">2016</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="10" checked>
+                        <label class="form-check-label" for="inlineCheckbox11" id="lab10">2017</label>
+                    </div>
+                    <button type="submit" class="btn btn-outline-light p-1" style="color:#ccccff; border-color:#ccccff">Des All</button>
+                </div>
+                <div id="cont2"></div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <p>Se toman 11 archivos y de ellos solo las filas que comienzan por fecha, el resto son comentarios del csv. Se ordenan y se representan de forma polar.</p>
+        <p>Se realiza una animaci&oacute;n con <i>setInterval</i> y <i>transition()</i> de D3.</p>
+        <p>La representación de la derecha permite seleccionar los años mediantes cheks de diferentes colores.</p>
+        <p>Los datos se han obtenido de <a href="http://meteo.navarra.es/estaciones/mapadeestaciones.cfm">Meteo Navarra</a></p>
+        <p>Basado en la siguiente muestra de <a href="https://bl.ocks.org/mbostock/4583749">bl.ocks.org</a></p>
+        <!--<p>Adjunto <a href="JesusVicenteRiquelme.pdf">curr&iacute;culo</a> por si saben de alg&uacute;n equipo de este &aacute;mbito que necesiten gente y quisieran contar conmmigo.</p>-->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="http://d3js.org/d3.v5.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

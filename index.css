@@ -1,0 +1,27 @@
+        .frame {
+            fill: none;
+            stroke: #000;
+        }
+
+        .axis text {
+            font: 10px sans-serif;
+            color: "#ffffff";
+        }
+
+        .axis line,
+        .axis circle {
+            fill: none;
+            stroke: #bbb;
+            stroke-dasharray: 1, 4;
+        }
+
+        .axis :last-of-type circle {
+            stroke: #bbb;
+            stroke-dasharray: none;
+        }
+
+        .line {
+            fill: none;
+            stroke: red;
+            stroke-width: 1.5px;
+        }
