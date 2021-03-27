@@ -1,89 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://chusohub.github.io/index.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
+<style>
+ svg {display: block;margin: auto;}
+ #contenedor   {width: 100%;}
+</style>
+<title>Skimage Segmentation &amp; D3 Force Layout</title>
 </head>
-<body class="text-white bg-dark">
-    <center>
-        
-       <h1 class="font-weight-light pt-2" style="margin-left:-3rem"><!--<a type="button" href ="JesusVicenteRiquelme.pdf" class="btn btn-lg rounded btn-info  ml-4 mr-4 ">CV <i class="fa fa-envelope" aria-hidden="true"></i></a>-->  Temperatura <sup>o</sup>C - Estaci&oacute;n de Pamplona (ETSIA) UPNA </h1>
-    </center>
-    
-    
-    <div class="container">
-        <div class="row mt-3  pt-2 ">
-            <div id="id1" class="col">
-                <h2 class="mt-4 pt-1 font-weight-light"></h2>
-                <div id="cont1"></div>
-            </div>
-            <div class="col  mt-4">
-                <div class="row  float-right">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="0" checked>
-                        <label class="form-check-label" for="inlineCheckbox1" id="lab0">2007</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="1">
-                        <label class="form-check-label" for="inlineCheckbox2" id="lab1">2008</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="2">
-                        <label class="form-check-label" for="inlineCheckbox3" id="lab2">2009</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="3">
-                        <label class="form-check-label" for="inlineCheckbox4" id="lab3">2010</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="4">
-                        <label class="form-check-label" for="inlineCheckbox5" id="lab4">2011</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="5">
-                        <label class="form-check-label" for="inlineCheckbox6" id="lab5">2012</label>
-                    </div>
-                </div>
-                <div class="row float-right">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="6">
-                        <label class="form-check-label" for="inlineCheckbox7" id="lab6">2013</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="7">
-                        <label class="form-check-label" for="inlineCheckbox8" id="lab7">2014</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="8">
-                        <label class="form-check-label" for="inlineCheckbox9" id="lab8">2015</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox10" value="9">
-                        <label class="form-check-label" for="inlineCheckbox10" id="lab9">2016</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="10" checked>
-                        <label class="form-check-label" for="inlineCheckbox11" id="lab10">2017</label>
-                    </div>
-                    <button type="submit" class="btn btn-outline-light p-1" style="color:#ccccff; border-color:#ccccff">Des All</button>
-                </div>
-                <div id="cont2"></div>
-            </div>
+<body>
+ <center>
+  <h1 style="font-family: 'Fredericka the Great', cursive;">Skimage Segmentation &amp; D3 Force Layout</h1>
+ </center>
+ <div id="contenedor"></div>
+ <br/>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<script>
+var width = 600,
+height = 700;
+d3.csv("https://raw.githubusercontent.com/chusoHub/D3Art/main/mariobros.csv", function(d) {
+  return {
+         i : +d.i,
+         radio : +d.radio,
+         centro_x : +d.centro_x,
+         centro_y : +d.centro_y,
+         color_r : +d.color_r,
+         color_g : +d.color_g,
+         color_b : +d.color_b
+  };
+}).then(function (datos) {
+var svg = d3.select("#contenedor").append("svg").attr("width",width)
+            .attr("height",height);
 
-        </div>
-    </div>
-    <div class="container">
-        <p>Se toman 11 archivos y de ellos solo las filas que comienzan por fecha, el resto son comentarios del csv. Se ordenan y se representan de forma polar.</p>
-        <p>Se realiza una animaci&oacute;n con <i>setInterval</i> y <i>transition()</i> de D3.</p>
-        <p>La representación de la derecha permite seleccionar los años mediantes cheks de diferentes colores.</p>
-        <p>Los datos se han obtenido de <a href="http://meteo.navarra.es/estaciones/mapadeestaciones.cfm">Meteo Navarra</a></p>
-        <p>Basado en la siguiente muestra de <a href="https://bl.ocks.org/mbostock/4583749">bl.ocks.org</a></p>
-        <!--<p>Adjunto <a href="JesusVicenteRiquelme.pdf">curr&iacute;culo</a> por si saben de alg&uacute;n equipo de este &aacute;mbito que necesiten gente y quisieran contar conmmigo.</p>-->
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="https://chusohub.github.io/index.js"></script>
+datos.forEach(function(d) { d.x = 300; d.y = 350; d.vx = d.vy = 10; });
+var simulation = d3.forceSimulation(datos);
+
+simulation.force("xAxis",d3.forceX(funcionx).strength(0.2))
+          .force("yAxis",d3.forceY(funciony).strength(0.2))
+          .force("collide", d3.forceCollide().radius(d => d.radio + 0.2).iterations(1))
+          .alphaTarget(0.7);
+          //.velocityDecay(0.2)
+          //.alpha(0.001);
+		  //.force("charge", d3.forceManyBody().strength(-0.1));
+
+ var node = svg.selectAll("circle").data(datos)
+            .enter().append("circle")
+            .attr("r",function(d){  return d.radio}).attr("cx",function(d){ return d.centro_x}).attr("cy",function(d){ return d.centro_y})
+            .attr("fill",function(d){return d3.rgb(d.color_r,d.color_g,d.color_b)}).attr("opacity",1)
+			.call(d3.drag().on("drag", dragged).on("end", dragend));
+
+ function funcionx(d){
+  return d.centro_x
+ }
+ function funciony(d){
+  return d.centro_y
+ }
+function dragged(event, d) {
+ d.fx = event.x;
+ d.fy = event.y;
+ simulation.alpha(1).restart();
+}
+ function dragend(event,d) {
+  if (!event.active) simulation.alphaTarget(0);
+  event.subject.fx = null;
+  event.subject.fy = null;
+  d.fx = null;
+  d.fy = null;
+ }
+ function ticked(){
+  console.log(simulation.alpha())
+  if(simulation.alpha()< 0.75){
+   simulation.stop()
+  }else{
+   node.attr("cx", function(d){ return d.x;})
+       .attr("cy", function(d){ return d.y;})
+  }
+ }
+ simulation.on("tick",ticked);
+})
+</script>
 </body>
 </html>
