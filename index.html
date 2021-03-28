@@ -13,7 +13,24 @@
 <body>
  <center>
   <h1 style="font-family: 'Fredericka the Great', cursive;">Skimage Segmentation &amp; D3 Force Layout</h1>
+  <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="mario" checked>
+  <label class="form-check-label" for="inlineRadio1">Mario</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="faraday">
+  <label class="form-check-label" for="inlineRadio2">Faraday</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="marc">
+  <label class="form-check-label" for="inlineRadio3">Marc</label>
+</div>
  </center>
+<div class="text-center">
+  <div class="spinner-border text-secondary m-5" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
  <div id="contenedor"></div>
  <br/>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -21,67 +38,91 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 <script src="https://d3js.org/d3.v6.min.js"></script>
 <script>
-var width = 600,
-height = 700;
-d3.csv("https://raw.githubusercontent.com/chusoHub/D3Art/main/mariobros.csv", function(d) {
-  return {
-         i : +d.i,
-         radio : +d.radio,
-         centro_x : +d.centro_x,
-         centro_y : +d.centro_y,
-         color_r : +d.color_r,
-         color_g : +d.color_g,
-         color_b : +d.color_b
-  };
-}).then(function (datos) {
-var svg = d3.select("#contenedor").append("svg").attr("width",width)
-            .attr("height",height);
+var csvFiles = {
+  "mario": "https://raw.githubusercontent.com/chusoHub/D3Art/main/mariobros.csv",
+  "faraday": "https://raw.githubusercontent.com/chusoHub/D3Art/main/faraday.csv",
+  "marc": "https://raw.githubusercontent.com/chusoHub/D3Art/main/marc.csv"
+},
+factores = {
+  "mario": 1,
+  "faraday": 1.3,
+  "marc": 2.5
+};
 
-datos.forEach(function(d) { d.x = 300; d.y = 350; d.vx = d.vy = 10; });
-var simulation = d3.forceSimulation(datos);
-
-simulation.force("xAxis",d3.forceX(funcionx).strength(0.2))
-          .force("yAxis",d3.forceY(funciony).strength(0.2))
-          .force("collide", d3.forceCollide().radius(d => d.radio + 0.2).iterations(1))
-          .alphaTarget(0.7);
-          //.velocityDecay(0.2)
-          //.alpha(0.001);
-		  //.force("charge", d3.forceManyBody().strength(-0.1));
-
- var node = svg.selectAll("circle").data(datos)
-            .enter().append("circle")
-            .attr("r",function(d){  return d.radio}).attr("cx",function(d){ return d.centro_x}).attr("cy",function(d){ return d.centro_y})
-            .attr("fill",function(d){return d3.rgb(d.color_r,d.color_g,d.color_b)}).attr("opacity",1)
-			.call(d3.drag().on("drag", dragged).on("end", dragend));
-
- function funcionx(d){
-  return d.centro_x
- }
- function funciony(d){
-  return d.centro_y
- }
-function dragged(event, d) {
- d.fx = event.x;
- d.fy = event.y;
- simulation.alpha(1).restart();
-}
- function dragend(event,d) {
-  if (!event.active) simulation.alphaTarget(0);
-  event.subject.fx = null;
-  event.subject.fy = null;
-  d.fx = null;
-  d.fy = null;
- }
- function ticked(){
-  console.log(simulation.alpha())
-  if(simulation.alpha()< 0.75){
-   simulation.stop()
-  }else{
-   node.attr("cx", function(d){ return d.x;})
-       .attr("cy", function(d){ return d.y;})
+$(function() {
+  $("input").change(function () {
+      if ($(this).prop("checked")) {
+         pinta(csvFiles[$(this).val()],factores[$(this).val()]);
+      } 
+  });
+  
+  pinta(csvFiles["mario"],factores["mario"]);
+  
+  function pinta (csvFile, factor) {
+    d3.select("svg").remove();
+    $('.spinner-border').show();
+    d3.csv(csvFile, function(d) {
+      return {
+             i : +d.i,
+             radio : +d.radio*factor,
+             centro_x : +d.centro_x*factor,
+             centro_y : +d.centro_y*factor,
+             color_r : +d.color_r,
+             color_g : +d.color_g,
+             color_b : +d.color_b
+      };
+    }).then(function (datos) {
+    
+    var svg = d3.select("#contenedor").append("svg").attr("width",600)
+                .attr("height",700);
+    
+    datos.forEach(function(d) { d.x = 300; d.y = 350; d.vx = d.vy = 10; });
+    var simulation = d3.forceSimulation(datos);
+    $('.spinner-border').hide();
+    simulation.force("xAxis",d3.forceX(funcionx).strength(0.2))
+              .force("yAxis",d3.forceY(funciony).strength(0.2))
+              .force("collide", d3.forceCollide().radius(d => d.radio + 0.2).iterations(1))
+              .alphaTarget(0.7);
+              //.velocityDecay(0.2)
+              //.alpha(0.001);
+    		  //.force("charge", d3.forceManyBody().strength(-0.1));
+    
+     var node = svg.selectAll("circle").data(datos)
+                .enter().append("circle")
+                .attr("r",function(d){  return d.radio}).attr("cx",function(d){ return d.centro_x}).attr("cy",function(d){ return d.centro_y})
+                .attr("fill",function(d){return d3.rgb(d.color_r,d.color_g,d.color_b)}).attr("opacity",1)
+    			.call(d3.drag().on("drag", dragged).on("end", dragend));
+    
+     function funcionx(d){
+      return d.centro_x
+     }
+     function funciony(d){
+      return d.centro_y
+     }
+    function dragged(event, d) {
+     d.fx = event.x;
+     d.fy = event.y;
+     simulation.alpha(1).restart();
+    }
+     function dragend(event,d) {
+      if (!event.active) simulation.alphaTarget(0);
+      event.subject.fx = null;
+      event.subject.fy = null;
+      d.fx = null;
+      d.fy = null;
+     }
+     function ticked(){
+	 console.log(simulation.alpha());
+      if(simulation.alpha()< 0.77){
+       simulation.stop();
+      }else{
+       node.attr("cx", function(d){ return d.x;})
+           .attr("cy", function(d){ return d.y;})
+      }
+     }
+     simulation.on("tick",ticked);
+    })
   }
- }
- simulation.on("tick",ticked);
 })
 </script>
 </body>
