@@ -113,7 +113,7 @@ $(function() {
      }
      function ticked(){
 	 console.log(simulation.alpha());
-      if(simulation.alpha()< 0.77){
+      if(simulation.alpha()< 0.75){
        simulation.stop();
       }else{
        node.attr("cx", function(d){ return d.x;})
